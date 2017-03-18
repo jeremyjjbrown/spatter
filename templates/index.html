@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Spatter {{ bucket_name }}</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h2>Bucket Name: {{ bucket_name }}</h2>
+            {% if parent %}
+            <p><a href="/{{ parent }}/">..</a></p>
+            {% else %}
+            <p><a href="/">..</a></p>
+            {% endif %}
+            {% for key in keys %}
+            <p><a href="/{{ key }}">{{ key }}</a></p>
+            {% endfor %}
+        </div>
+        <footer class="footer">
+            <p>Spatter Apache 2.0</p>
+        </footer>
+    </div>
+</body>
+</html>
