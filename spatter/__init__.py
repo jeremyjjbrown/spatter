@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
+from flask import Flask
+app = Flask(__name__)
 
-__author__ = """Jeremy James Brown"""
-__email__ = 'jeremyjjbrown@gmail.com'
-__version__ = '0.1.0'
+import spatter.views
+

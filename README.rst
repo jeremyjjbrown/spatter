@@ -17,18 +17,21 @@ spatter
      :target: https://pyup.io/repos/github/jeremyjjbrown/spatter/
      :alt: Updates
 
+A simple stateless server to navigate and serve an AWS S3 Bucket.
 
-A simple proxy to browse and serve and S3 bucket.
+The easiest way to use it is to grab the docker image.
 
+.. code-block:: bash
 
+    docker pull jeremyjjbrown/spatter
+    sudo docker run \
+        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+        -e S3_BUCKET_NAME=$S3_BUCKET_NAME \
+        -p 80:8000 jeremyjjbrown/spatter
+
+* https://hub.docker.com/r/jeremyjjbrown/spatter/
 * Free software: Apache License v2
-* Documentation: https://spatter.readthedocs.io.
-
-
-Features
---------
-
-* TODO
 
 Credits
 ---------

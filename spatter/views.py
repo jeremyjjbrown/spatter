@@ -5,8 +5,9 @@ from flask import Flask, render_template, Response
 from spatter.s3 import S3Bucket
 from spatter.mime import Mime
 
+from spatter import app
 
-app = Flask(__name__)
+#app = Flask(__name__)
 bucket_name = os.environ['S3_BUCKET_NAME']
 s3_bucket = S3Bucket(bucket_name)
 
