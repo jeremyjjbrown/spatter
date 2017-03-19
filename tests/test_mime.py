@@ -1,7 +1,7 @@
-from s3proxy.mime import Mime
+from spatter.mime import Mime
 
 
-class TestClass:
+class TestMime:
 
     def test_mime_mappings(self):
         assert Mime.for_ext('foo.jpeg') == 'image/jpeg'

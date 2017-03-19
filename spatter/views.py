@@ -1,13 +1,12 @@
 import logging
 import os
 
-from flask import Flask, render_template, Response
-from spatter.s3 import S3Bucket
+from flask import Flask, render_template, Response, abort
+from spatter.s3 import S3Bucket, S3Exception
 from spatter.mime import Mime
 
 from spatter import app
 
-#app = Flask(__name__)
 bucket_name = os.environ['S3_BUCKET_NAME']
 s3_bucket = S3Bucket(bucket_name)
 
@@ -16,8 +15,11 @@ s3_bucket = S3Bucket(bucket_name)
 def setup_logging():
     if not app.debug:
         # In production mode, add log handler to sys.stderr.
-        app.logger.addHandler(logging.StreamHandler())
+        handler = logging.StreamHandler()
+        app.logger.addHandler(handler)
         app.logger.setLevel(logging.INFO)
+        logger = logging.getLogger('werkzeug')
+        logger.addHandler(handler)
 
 
 @app.route('/<path:path>', methods=['GET'])
@@ -25,14 +27,16 @@ def setup_logging():
 def index(path=''):
     keys = s3_bucket.get_folders_and_file_keys(path)
     head, tail = os.path.split(path.rstrip('/'))
-    app.logger.info(head)
     if path == '' or path.endswith('/'):
         return render_template('index.html',
                                bucket_name=bucket_name,
                                parent=head,
                                keys=keys)
     else:
-        response = s3_bucket.get_content(path)
+        try:
+            response = s3_bucket.get_content(path)
+        except S3Exception:
+            abort(404)
         mime_type = Mime.for_ext(path)
         return Response(response, mimetype=mime_type)
 

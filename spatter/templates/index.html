@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <div>
-            <h2>Bucket Name: {{ bucket_name }}</h2>
+            <h3>Bucket Name: {{ bucket_name }}</h3>
             {% if parent %}
             <p><a href="/{{ parent }}/">..</a></p>
             {% else %}
@@ -18,8 +18,8 @@
             <p><a href="/{{ key }}">{{ key }}</a></p>
             {% endfor %}
         </div>
-        <footer class="footer">
-            <p>Spatter Apache 2.0</p>
+        <footer class="navbar navbar-fixed-bottom">
+            <p class="navbar-text">Spatter Apache 2.0</p>
         </footer>
     </div>
 </body>
